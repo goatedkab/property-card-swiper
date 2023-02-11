@@ -1,0 +1,65 @@
+
+.slider
+{
+    height: 100%;
+    position: relative;
+
+}
+
+.slider__dotsContainer
+{
+        position: absolute;
+        width: 100%;
+        bottom: 10px;
+        display: flex;
+        justify-content: center;
+        z-index: 10;
+}
+
+.slider__dot
+{
+    width: 9px;
+    height: 9px;
+    background-color: rgba(254, 254, 254, 0.663);
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 0 4px;
+}
+
+.slider__dotActive
+{
+    width: 9px;
+    height: 9px;
+    background-color: rgba(254, 254, 254, 0.946);
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 0 4px;
+
+}
+
+
+
+.slider__leftArrow
+{
+    position: absolute;
+    top: 50%;
+    Transform: 'translate(0, 50%)';
+    left: 30px;
+    font-size: 20px;
+    font-style: oblique;
+    color: rgba(255, 255, 255, 0.89);
+    z-index: 1;
+    cursor: pointer;
+}
+
+.slider__rightArrow
+{
+    position: absolute;
+    top: 50%;
+    Transform: 'translate(0, 50%)';
+    right: 30px;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.811);
+    z-index: 1;
+    cursor: pointer;
+}

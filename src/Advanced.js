@@ -1,55 +1,51 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react'
 import TinderCard from 'react-tinder-card'
-
-import { auth, database } from './firebase';
-import { getFirestore, collection, getDocs, onSnapshot } from 'firebase/firestore';
-
-
+import ImageSlider from './ImageSlider'
 
 
 
 
 const db = [
   {
-    name: 'Richard Hendricks',
-    url: 'https://media.rightmove.co.uk/49k/48618/131138630/48618_KNI230006_L_IMG_00_0000.jpeg'
+    name: '2 bedroom flat',
+    images: [ 
+    {url: 'https://media.rightmove.co.uk/49k/48618/131138630/48618_KNI230006_L_IMG_00_0000.jpeg', title: 'Beach'},
+    {url: 'https://media.rightmove.co.uk/50k/49389/130844048/49389_ONS1989876_IMG_00_0000.jpeg', title: 'Gang'},
+    {url: 'https://media.rightmove.co.uk/66k/65875/131154665/65875_KNQ012358686_IMG_00_0000.jpeg', title: 'Peak'}]
   },
   {
-    name: 'Erlich Bachman',
-    url: 'https://media.rightmove.co.uk/50k/49389/130844048/49389_ONS1989876_IMG_00_0000.jpeg '
+    name: '1 bedroom flat',
+    images: [ 
+    {url: 'https://media.rightmove.co.uk/90k/89893/116731484/89893_1013_IMG_03_0000.jpeg', title: 'Beach'},
+    {url: 'https://media.rightmove.co.uk/50k/49389/130844048/49389_ONS1989876_IMG_00_0000.jpeg', title: 'Gang'},
+    {url: 'https://media.rightmove.co.uk/66k/65875/131154665/65875_KNQ012358686_IMG_00_0000.jpeg', title: 'Peak'}]
   },
   {
-    name: 'Monica Hall',
-    url: 'https://media.rightmove.co.uk/66k/65875/131154665/65875_KNQ012358686_IMG_00_0000.jpeg'
+    name: 'terraced bungalow',
+    images: [ 
+    {url: 'https://media.rightmove.co.uk/49k/48618/131138630/48618_KNI230006_L_IMG_00_0000.jpeg', title: 'Beach'},
+    {url: 'https://media.rightmove.co.uk/50k/49389/130844048/49389_ONS1989876_IMG_00_0000.jpeg', title: 'Gang'},
+    {url: 'https://media.rightmove.co.uk/66k/65875/131154665/65875_KNQ012358686_IMG_00_0000.jpeg', title: 'Peak'}]
   },
   {
-    name: 'Jared Dunn',
-    url: 'https://media.rightmove.co.uk/66k/65875/131148356/65875_KNQ012229960_IMG_00_0000.jpeg'
+    name: 'new big house',
+    images: [ 
+    {url: 'https://media.rightmove.co.uk/90k/89893/116731484/89893_1013_IMG_03_0000.jpeg', title: 'Beach'},
+    {url: 'https://media.rightmove.co.uk/50k/49389/130844048/49389_ONS1989876_IMG_00_0000.jpeg', title: 'Gang'},
+    {url: 'https://media.rightmove.co.uk/66k/65875/131154665/65875_KNQ012358686_IMG_00_0000.jpeg', title: 'Peak'}]
   },
   {
-    name: 'Dinesh Chugtai',
-    url: 'https://media.rightmove.co.uk/131k/130732/131143538/130732_RL0001_IMG_00_0000.jpeg'
+    name: 'little house',
+    images: [ 
+    {url: 'https://media.rightmove.co.uk/49k/48618/131138630/48618_KNI230006_L_IMG_00_0000.jpeg', title: 'Beach'},
+    {url: 'https://media.rightmove.co.uk/50k/49389/130844048/49389_ONS1989876_IMG_00_0000.jpeg', title: 'Gang'},
+    {url: 'https://media.rightmove.co.uk/66k/65875/131154665/65875_KNQ012358686_IMG_00_0000.jpeg', title: 'Peak'}]
   }
 ]
 
 function Advanced () {
 
-  // const [db, setPeople] = useState([]);
 
-  // //piece of code which runs based on a condition
-  // useEffect(() => 
-  // {    
-  //     const unsubscribe = onSnapshot(collection(database, "properties"), (snapshot) => {
-  //         setPeople(snapshot.docs.map(doc => doc.data()));
-  //     }); 
-  
-  //     return () => {
-  //         //this is the cleanup...
-  //         unsubscribe(); 
-  //     }
-  // }, []);
-
-  
   const [currentIndex, setCurrentIndex] = useState(db.length - 1)
   const [lastDirection, setLastDirection] = useState()
   // used for outOfFrame closure
@@ -101,17 +97,23 @@ function Advanced () {
     await childRefs[newIndex].current.restoreCard()
   }
 
+  const containerStyles = {
+    width: "500px",
+    height: "300px",
+    margin: " 0 auto",
+  }
 
+  // {db.map((character, index) => (console.log(character.images)))}
 
   return (
     <div>
 
-      <h1>APP
-        
-      </h1>
+      <h1>GET A FLAT NOW</h1>
+
       <div className='cardContainer'>
 
         {db.map((character, index) => (
+
           <TinderCard
             ref={childRefs[index]}
             className='swipe'
@@ -119,11 +121,9 @@ function Advanced () {
             onSwipe={(dir) => swiped(dir, character.name, index)}
             onCardLeftScreen={() => outOfFrame(character.name, index)}
           >
-            <div
-              style={{ backgroundImage: 'url(' + character.url + ')' }}
-              className='card'
-            >
-              <h3>{character.name}</h3>
+            <div className='card'>
+            <ImageSlider slides = {character.images}/>   
+            <h3>{character.name}</h3>   
             </div>
           </TinderCard>
         ))}
