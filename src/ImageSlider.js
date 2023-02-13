@@ -16,7 +16,7 @@ const ImageSlider = ({slides}) => {
         borderRadius: '10px',
         backroundPosition: 'center', 
         backgroundSize: "cover",
-        backgroundImage: `url( ${slides[currentIndex].url})` 
+        backgroundImage: `url( ${slides[currentIndex]})` //add.url if it were an object
     }
 
     const  dotStyles = {
@@ -37,14 +37,14 @@ const ImageSlider = ({slides}) => {
          const isFirstSlide = currentIndex === 0
          const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
         setCurrentIndex(newIndex);
-        console.log('index is', newIndex)
+        console.log('image index is', newIndex)
 
     }
     const goToNext = () => {
         const isLastSlide = currentIndex === slides.length - 1
         const newIndex = isLastSlide ? 0 : currentIndex + 1; //the colon is else statement  
        setCurrentIndex(newIndex);
-       console.log('index is', newIndex)
+       console.log('image index is', newIndex)
    }
 
 
@@ -72,7 +72,6 @@ const ImageSlider = ({slides}) => {
       document.removeEventListener('keydown', keyDownHandler);
     };
   });
-
 
 
 

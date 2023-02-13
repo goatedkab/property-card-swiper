@@ -3,68 +3,138 @@ import TinderCard from 'react-tinder-card'
 import ImageSlider from './ImageSlider'
 
 
+import { auth, database } from './firebase';
+import { getFirestore, collection, getDocs, onSnapshot } from 'firebase/firestore';
 
 
-const db = [
-  {
-    name: '2 bedroom flat',
-    images: [ 
-    {url: 'https://media.rightmove.co.uk/49k/48618/131138630/48618_KNI230006_L_IMG_00_0000.jpeg', title: 'Beach'},
-    {url: 'https://media.rightmove.co.uk/50k/49389/130844048/49389_ONS1989876_IMG_00_0000.jpeg', title: 'Gang'},
-    {url: 'https://media.rightmove.co.uk/66k/65875/131154665/65875_KNQ012358686_IMG_00_0000.jpeg', title: 'Peak'}]
-  },
-  {
-    name: '1 bedroom flat',
-    images: [ 
-    {url: 'https://media.rightmove.co.uk/90k/89893/116731484/89893_1013_IMG_03_0000.jpeg', title: 'Beach'},
-    {url: 'https://media.rightmove.co.uk/50k/49389/130844048/49389_ONS1989876_IMG_00_0000.jpeg', title: 'Gang'},
-    {url: 'https://media.rightmove.co.uk/66k/65875/131154665/65875_KNQ012358686_IMG_00_0000.jpeg', title: 'Peak'}]
-  },
-  {
-    name: 'terraced bungalow',
-    images: [ 
-    {url: 'https://media.rightmove.co.uk/49k/48618/131138630/48618_KNI230006_L_IMG_00_0000.jpeg', title: 'Beach'},
-    {url: 'https://media.rightmove.co.uk/50k/49389/130844048/49389_ONS1989876_IMG_00_0000.jpeg', title: 'Gang'},
-    {url: 'https://media.rightmove.co.uk/66k/65875/131154665/65875_KNQ012358686_IMG_00_0000.jpeg', title: 'Peak'}]
-  },
-  {
-    name: 'new big house',
-    images: [ 
-    {url: 'https://media.rightmove.co.uk/90k/89893/116731484/89893_1013_IMG_03_0000.jpeg', title: 'Beach'},
-    {url: 'https://media.rightmove.co.uk/50k/49389/130844048/49389_ONS1989876_IMG_00_0000.jpeg', title: 'Gang'},
-    {url: 'https://media.rightmove.co.uk/66k/65875/131154665/65875_KNQ012358686_IMG_00_0000.jpeg', title: 'Peak'}]
-  },
-  {
-    name: 'little house',
-    images: [ 
-    {url: 'https://media.rightmove.co.uk/49k/48618/131138630/48618_KNI230006_L_IMG_00_0000.jpeg', title: 'Beach'},
-    {url: 'https://media.rightmove.co.uk/50k/49389/130844048/49389_ONS1989876_IMG_00_0000.jpeg', title: 'Gang'},
-    {url: 'https://media.rightmove.co.uk/66k/65875/131154665/65875_KNQ012358686_IMG_00_0000.jpeg', title: 'Peak'}]
-  }
-]
+
+
+// const propertyData = [
+//   {
+//     name: '2 bedroom flat',
+//     images: [ 'https://media.rightmove.co.uk/49k/48618/131138630/48618_KNI230006_L_IMG_00_0000.jpeg',
+//     'https://media.rightmove.co.uk/50k/49389/130844048/49389_ONS1989876_IMG_00_0000.jpeg',
+//     'https://media.rightmove.co.uk/66k/65875/131154665/65875_KNQ012358686_IMG_00_0000.jpeg']
+//   },
+//   {
+//     name: '1 bedroom flat',
+//     images: [ 
+//     'https://media.rightmove.co.uk/90k/89893/116731484/89893_1013_IMG_03_0000.jpeg',
+//     'https://media.rightmove.co.uk/50k/49389/130844048/49389_ONS1989876_IMG_00_0000.jpeg',
+//     'https://media.rightmove.co.uk/66k/65875/131154665/65875_KNQ012358686_IMG_00_0000.jpeg']
+//   },
+//   {
+//     name: 'terraced bungalow',
+//     images: [ 
+//     'https://media.rightmove.co.uk/49k/48618/131138630/48618_KNI230006_L_IMG_00_0000.jpeg',
+//     'https://media.rightmove.co.uk/50k/49389/130844048/49389_ONS1989876_IMG_00_0000.jpeg',
+//     'https://media.rightmove.co.uk/66k/65875/131154665/65875_KNQ012358686_IMG_00_0000.jpeg']
+//   }
+// ]
+
 
 function Advanced () {
 
 
-  const [currentIndex, setCurrentIndex] = useState(db.length - 1)
+    const [propertyData, setPropertyData] = useState([  {
+      name: '1',
+      images: []
+    },
+    {
+      name: '2',
+      images: []
+    },
+    {
+      name: '3',
+      images: []
+    },
+    {
+      name: '4',
+      images: []
+    },
+    {
+      name: '5',
+      images: []
+    }
+    ]);
+
+    console.log(propertyData.slice(0,3))
+
+    useEffect(() => 
+    {    
+        const unsubscribe = onSnapshot(collection(database, "properties"), (snapshot) => {
+          setPropertyData(snapshot.docs.map(doc => doc.data()).slice(0,5));
+        }); 
+    
+        return () => {
+            //this is the cleanup...
+            unsubscribe(); 
+        }
+    }, []);
+
+
+
+    useEffect(() => {
+      const keyDownHandler = event => {
+      //   console.log('User pressed: ', event.key);
+  
+        if (event.key === 'ArrowUp') {
+          event.preventDefault();
+          // 👇️ your logic here
+          swipe('right');
+        }
+        if (event.key === 'ArrowDown') {
+          event.preventDefault();
+          // 👇️ your logic here
+          swipe('left');
+        }
+        if (event.key === 'Backspace') {
+          event.preventDefault();
+  
+          // 👇️ your logic here
+          goBack();
+        }
+      };
+      document.addEventListener('keydown', keyDownHandler);
+  
+      return () => {
+        document.removeEventListener('keydown', keyDownHandler);
+      };
+    });
+    
+
+
+
+  const [currentIndex, setCurrentIndex] = useState(propertyData.length - 1)
   const [lastDirection, setLastDirection] = useState()
+
+  
+  // console.log(`current index is ${currentIndex}`)
+
+
   // used for outOfFrame closure
   const currentIndexRef = useRef(currentIndex)
 
+  // console.log(`currentIndexRef is ${currentIndexRef}`)
+
   const childRefs = useMemo(
     () =>
-      Array(db.length)
+      Array(propertyData.length)
         .fill(0)
         .map((i) => React.createRef()),
     []
   )
 
+
   const updateCurrentIndex = (val) => {
     setCurrentIndex(val)
     currentIndexRef.current = val
+
   }
 
-  const canGoBack = currentIndex < db.length - 1
+  
+  const canGoBack = currentIndex < propertyData.length - 1
+  console.log(`condition is ${currentIndex < propertyData.length - 1} ,  currentIndex is ${currentIndex}, and (propertyData.length - 1) is ${propertyData.length - 1} `)
 
   const canSwipe = currentIndex >= 0
 
@@ -84,7 +154,7 @@ function Advanced () {
   }
 
   const swipe = async (dir) => {
-    if (canSwipe && currentIndex < db.length) {
+    if (canSwipe && currentIndex < propertyData.length) {
       await childRefs[currentIndex].current.swipe(dir) // Swipe the card!
     }
   }
@@ -103,7 +173,6 @@ function Advanced () {
     margin: " 0 auto",
   }
 
-  // {db.map((character, index) => (console.log(character.images)))}
 
   return (
     <div>
@@ -112,23 +181,22 @@ function Advanced () {
 
       <div className='cardContainer'>
 
-        {db.map((character, index) => (
-
+        {propertyData.map((property, index) => (
           <TinderCard
             ref={childRefs[index]}
             className='swipe'
-            key={character.name}
-            onSwipe={(dir) => swiped(dir, character.name, index)}
-            onCardLeftScreen={() => outOfFrame(character.name, index)}
-          >
+            key={property.name}
+            onSwipe={(dir) => swiped(dir, property.name, index)}
+            onCardLeftScreen={() => outOfFrame(property.name, index)}
+            >
             <div className='card'>
-            <ImageSlider slides = {character.images}/>   
-            <h3>{character.name}</h3>   
+            <ImageSlider slides = {property.images}/>   
+            <h3>{property.name}</h3>   
             </div>
           </TinderCard>
         ))}
-
       </div>
+
 
       <div className='buttons'>
         <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('left')}>Swipe left!</button>

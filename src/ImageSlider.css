@@ -3,17 +3,16 @@
 {
     height: 100%;
     position: relative;
-
 }
 
 .slider__dotsContainer
 {
-        position: absolute;
-        width: 100%;
-        bottom: 10px;
-        display: flex;
-        justify-content: center;
-        z-index: 10;
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+    display: flex;
+    justify-content: center;
+    z-index: 10;
 }
 
 .slider__dot
@@ -34,9 +33,7 @@
     border-radius: 50%;
     cursor: pointer;
     margin: 0 4px;
-
 }
-
 
 
 .slider__leftArrow
