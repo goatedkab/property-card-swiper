@@ -177,7 +177,7 @@ function Advanced () {
   return (
     <div>
 
-      <h1>GET A FLAT NOW</h1>
+      <h1>rightmove is boring</h1>
 
       <div className='cardContainer'>
 
@@ -204,12 +204,17 @@ function Advanced () {
         <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('right')}>Swipe right!</button>
       </div>
       {lastDirection ? (
+        lastDirection == 'right' ? (
         <h2 key={lastDirection} className='infoText'>
-          You swiped {lastDirection}
+          Added to your collection
         </h2>
+        ): (
+        <h2 key={lastDirection} className='infoText'>
+          pfft, not for me
+        </h2>)
       ) : (
         <h2 className='infoText'>
-          Swipe a card or press a button to get Restore Card button visible!
+          Swipe a card, press a button, or use the arrow keys to find your dream home!
         </h2>
       )}
 
