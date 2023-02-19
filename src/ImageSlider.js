@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import './ImageSlider.css';
 import keydown from 'react-keydown';
-
+import { ReactSVG } from "react-svg";
+import arrow from "./arrow.svg";
 
 
  
@@ -16,7 +17,9 @@ const ImageSlider = ({slides}) => {
         borderRadius: '10px',
         backroundPosition: 'center', 
         backgroundSize: "cover",
-        backgroundImage: `url( ${slides[currentIndex]})` //add.url if it were an object
+        backgroundImage: `url( ${slides[currentIndex]})`, //add.url if it were an object
+        backgroundImage:`linear-gradient(to bottom, rgba(45, 42, 64, 0.25), rgba(210, 211, 217, 0)) , url( ${slides[currentIndex]})`,
+    
     }
 
     const  dotStyles = {
@@ -80,8 +83,8 @@ const ImageSlider = ({slides}) => {
 
     return (
     <div className='slider'>
-            <div className='slider__leftArrow'  onClick = {goToPrevious}>←</div>
-            <div className='slider__rightArrow' onClick = {goToNext}>→</div>
+            <div className='slider__leftArrow'  onClick = {goToPrevious}><img src={arrow} className='left'/></div>
+            <div className='slider__rightArrow' onClick = {goToNext}><img src={arrow} className='right'/></div>
         <div style= {slideStyles}></div>
             <div className='slider__dotsContainer'>
                 {slides.map((slide, slideIndex) => (

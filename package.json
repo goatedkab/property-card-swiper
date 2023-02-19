@@ -1,6 +1,5 @@
 {
     "name": "advanced",
-    "homepage": "/react-tinder-card-demo",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
@@ -14,6 +13,7 @@
         "react-ios-switch": "^0.1.19",
         "react-keydown": "^1.9.12",
         "react-scripts": "5.0.1",
+        "react-svg": "^16.1.2",
         "react-tinder-card": "^1.6.2",
         "web-vitals": "^2.1.4"
     },

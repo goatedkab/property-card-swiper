@@ -177,7 +177,7 @@ function Advanced () {
   return (
     <div>
 
-      <h1>rightmove is boring</h1>
+      {/* <h1>get swipin'</h1> */}
 
       <div className='cardContainer'>
 
@@ -190,8 +190,11 @@ function Advanced () {
             onCardLeftScreen={() => outOfFrame(property.name, index)}
             >
             <div className='card'>
-            <ImageSlider slides = {property.images}/>   
-            <h3>{property.name}</h3>   
+            <ImageSlider slides = {property.images}/>  
+            <div className='informationContainer'>
+            <h3>{property.name}</h3>
+            <h4>{property.price}</h4>
+            </div> 
             </div>
           </TinderCard>
         ))}
@@ -199,18 +202,18 @@ function Advanced () {
 
 
       <div className='buttons'>
-        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('left')}>Swipe left!</button>
-        <button style={{ backgroundColor: !canGoBack && '#c3c4d3' }} onClick={() => goBack()}>Undo swipe!</button>
-        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('right')}>Swipe right!</button>
+        <button style={{ backgroundColor: !canSwipe && '#c3c4d3', boxShadow: !canSwipe && 'rgba(220, 220, 220, 0.447) 5px 5px 20px' }} onClick={() => swipe('left')}>Swipe left!</button>
+        <button style={{ backgroundColor: !canGoBack && '#c3c4d3', boxShadow: !canGoBack && 'rgba(220, 220, 220, 0.447) 5px 5px 20px' }} onClick={() => goBack()}>Undo swipe!</button>
+        <button style={{ backgroundColor: !canSwipe && '#c3c4d3', boxShadow: !canSwipe && 'rgba(220, 220, 220, 0.447) 5px 5px 20px' }} onClick={() => swipe('right')}>Swipe right!</button>
       </div>
       {lastDirection ? (
         lastDirection == 'right' ? (
         <h2 key={lastDirection} className='infoText'>
-          Added to your collection
+          Added to your collection!
         </h2>
         ): (
         <h2 key={lastDirection} className='infoText'>
-          pfft, not for me
+           not for me...
         </h2>)
       ) : (
         <h2 className='infoText'>

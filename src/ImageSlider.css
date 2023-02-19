@@ -45,6 +45,9 @@
     font-size: 20px;
     font-style: oblique;
     color: rgba(255, 255, 255, 0.89);
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
     z-index: 1;
     cursor: pointer;
 }
@@ -57,6 +60,20 @@
     right: 30px;
     font-size: 20px;
     color: rgba(255, 255, 255, 0.811);
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
     z-index: 1;
     cursor: pointer;
+}
+
+.right
+{
+    transform: rotate(180deg) scale(1.2);
+
+}
+
+.left
+{
+    transform: scale(1.2);
 }
