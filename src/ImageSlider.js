@@ -14,12 +14,9 @@ const ImageSlider = ({slides}) => {
     const  slideStyles = {
         width: '100%', 
         height: '100%',
-        borderRadius: '10px',
         backroundPosition: 'center', 
         backgroundSize: "cover",
-        backgroundImage: `url( ${slides[currentIndex]})`, //add.url if it were an object
         backgroundImage:`linear-gradient(to bottom, rgba(45, 42, 64, 0.25), rgba(210, 211, 217, 0)) , url( ${slides[currentIndex]})`,
-    
     }
 
     const  dotStyles = {

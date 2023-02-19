@@ -190,11 +190,14 @@ function Advanced () {
             onCardLeftScreen={() => outOfFrame(property.name, index)}
             >
             <div className='card'>
-            <ImageSlider slides = {property.images}/>  
-            <div className='informationContainer'>
-            <h3>{property.name}</h3>
-            <h4>{property.price}</h4>
-            </div> 
+              <ImageSlider slides = {property.images}/> 
+              <div className='informationContainer'>
+                <h3>{property.name}</h3>
+                
+              </div> 
+              <div className='descriptionContainer'>
+                <h4>{property.price}</h4>
+              </div>
             </div>
           </TinderCard>
         ))}
